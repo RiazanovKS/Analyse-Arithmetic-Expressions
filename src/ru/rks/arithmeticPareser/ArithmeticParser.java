@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Класс предназначен для синтаксического анализа арифметических выражений.
+ */
+
 public class ArithmeticParser {
 
     public static void main(String[] args) {
