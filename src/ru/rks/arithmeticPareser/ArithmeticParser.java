@@ -10,16 +10,30 @@ public class ArithmeticParser {
 
     public static void main(String[] args) {
 
+            String str = inputString();
+            checkForValidate(str);
+
+    }
+
+    /**
+     * Метод для ввода арифметического выражения с клавиатуры.
+     * @return строка, содержащее арифметическое выражение.
+     */
+    static String inputString() {
+
+        String string = null;
+
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
 
-            String str;
             System.out.println("Введите арифметическое выражение: ");
-            str = bufferedReader.readLine();
-            checkForValidate(str);
+            string = bufferedReader.readLine();
+
         } catch (IOException e) {
             e.printStackTrace();
+
         }
 
+        return  string;
     }
 
     /**
