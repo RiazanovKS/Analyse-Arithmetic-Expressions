@@ -18,8 +18,6 @@ public class ArithmeticParser {
         str = deleteSpaces(str);
         System.out.println(str);
         checkForValidate(str);
-
-
     }
 
     /**
@@ -52,7 +50,8 @@ public class ArithmeticParser {
      */
     private static boolean checkForConformity(String string) {
 
-        return string.matches("^(-?\\(*-?)*(\\d+(?:\\.\\d+)?|\\w+)+(\\s*\\)*\\s*[-+*^/%=]\\s*(-?\\(*-?)*(\\d+(?:\\.\\d+)?|\\w)+\\)*)+$");
+        return string.matches("^((-?\\(*-?)*(((\\d+(\\.\\d+)?)|(\\.\\d+))|[A-Za-z]+)\\)*)" +
+                "([-+*%\\/]=?((-?\\(*-?)*(((\\d+(\\.\\d+)?)|(\\.\\d+))|[A-Za-z]+)\\)*))+$");
     }
 
     /**
