@@ -14,13 +14,17 @@ public class ArithmeticParser {
 
     public static void main(String[] args) {
 
-            String str = inputString();
-            checkForValidate(str);
+        String str = inputString();
+        str = deleteSpaces(str);
+        System.out.println(str);
+        checkForValidate(str);
+
 
     }
 
     /**
      * Метод для ввода арифметического выражения с клавиатуры.
+     *
      * @return строка, содержащее арифметическое выражение.
      */
     static String inputString() {
@@ -37,54 +41,53 @@ public class ArithmeticParser {
 
         }
 
-        return  string;
+        return string;
     }
 
     /**
      * Метод возвращает результат сопоставления полученного на вход арифметического выражения с регулярным.
+     *
      * @param string
      * @return результат сопоставления арифметического выражения с регулярным.
      */
     private static boolean checkForConformity(String string) {
 
         return string.matches("^(-?\\(*-?)*(\\d+(?:\\.\\d+)?|\\w+)+(\\s*\\)*\\s*" +
-                "[-+*^\\/]\\s*(-?\\(*-?)*(\\d+(?:\\.\\d+)?|\\w)+\\)*)+$");
+                "[-+*^/%=]\\s*(-?\\(*-?)*(\\d+(?:\\.\\d+)?|\\w)+\\)*)+$");
     }
 
     /**
      * Метод выводит результаты проверки строки на соответствие регулярному выражению
      * и соотвествие открывающих и закывающих скобок в консоль.
+     *
      * @param string
      */
-    static void checkForValidate(String string){
+    static void checkForValidate(String string) {
 
-        if(checkForConformity(string)){
+        if (checkForConformity(string)) {
 
-            if( checkForBrackets(string)) {
+            if (checkForBrackets(string)) {
 
                 System.out.println("Выражение введено верно");
 
-            }
+            } else {
 
-                else {
-
-                    System.out.println("Несоотвествие открывающих и закрывающих скобок");
-
-                }
+                System.out.println("Несоотвествие открывающих и закрывающих скобок");
 
             }
 
-            else{
+        } else {
 
             System.out.println("Выражение введено некорректно");
 
         }
     }
+
     /**
      * Метод подсчитывает кол-во открывающих и закрывающих скобок в выражении и возвращает
      * булевое значение в зависимости от равенства их кол-ва.
      *
-     * @param string
+     * @param string Переменная строкового типа, содержащая арифметическое выражение.
      * @return булевое значение в зависимости от равенства открывающих скобок: true - если равны,
      * false - если нет, соответственно.
      */
@@ -112,10 +115,10 @@ public class ArithmeticParser {
     }
 
 
-    /*private static String deleteSpaces(String string) {
+    private static String deleteSpaces(String string) {
 
         return string.replaceAll(" ", "");
 
-    }*/
+    }
 
 }
