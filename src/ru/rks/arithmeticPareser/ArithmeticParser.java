@@ -107,12 +107,22 @@ public class ArithmeticParser {
 
     }
 
-
+    /**
+     * Метод удаляет все пробелы в арифметическом выражении.
+     * @param expression Арифметическое выражение
+     * @return Арифметическое выражение без пробелов.
+     */
     private static String deleteSpaces(String expression) {
 
         return expression.replaceAll(" ", "");
 
     }
+
+    /**
+     * Метод ищет двойные знаки операций в арифметическом выражении.
+     * @param expression Арифметическое выражение
+     * @return true - если есть двойные знаки операций, false - если нет.
+     */
     private static boolean checkForDoubleSignOperations(String expression){
         Pattern pattern = Pattern.compile("([-+*\\/%]=?){2,}");
         Matcher matcher = pattern.matcher(expression);
