@@ -13,11 +13,9 @@ import java.util.regex.Pattern;
 public class ArithmeticParser {
 
     public static void main(String[] args) {
-
-        String str = inputString();
-        str = deleteSpaces(str);
-        System.out.println(str);
-        checkForValidate(str);
+        checkForValidate(
+                deleteSpaces(
+                        inputString()));
     }
 
     /**
@@ -58,38 +56,35 @@ public class ArithmeticParser {
      * Метод выводит результаты проверки строки на соответствие регулярному выражению
      * и соотвествие открывающих и закывающих скобок в консоль.
      *
-     * @param string
+     * @param expression Строка, содержащая регулярное выражение.
      */
-    static void checkForValidate(String string) {
-
-        if (checkForConformity(string)) {
-
-            if (checkForBrackets(string)) {
-
-                System.out.println("Выражение введено верно");
-
-            } else {
-
-                System.out.println("Несоотвествие открывающих и закрывающих скобок");
-
+    static void checkForValidate(String expression) {
+        if (checkForConformity(expression)) {
+            if(!checkForBrackets(expression)){
+                System.out.println("Несоответствие открывающих и закрывающих скобок");
+                return;
             }
-
-        } else {
-
-            System.out.println("Выражение введено некорректно");
-
+            if(checkForDoubleSignOperations(expression)){
+                System.out.println("Два идущих подряд знака операции");
+                return;
+            }
+            System.out.println("Выражение введено верно");
         }
+        else{
+            System.out.println("Неверно введено арифметическое выражение");
+        }
+
     }
 
     /**
      * Метод подсчитывает кол-во открывающих и закрывающих скобок в выражении и возвращает
      * булевое значение в зависимости от равенства их кол-ва.
      *
-     * @param string Переменная строкового типа, содержащая арифметическое выражение.
+     * @param expression Переменная строкового типа, содержащая арифметическое выражение.
      * @return булевое значение в зависимости от равенства открывающих скобок: true - если равны,
      * false - если нет, соответственно.
      */
-    private static boolean checkForBrackets(String string) {
+    private static boolean checkForBrackets(String expression) {
 
         int countClosingBrackets = 0;
         int countOpeningBrackets = 0;
@@ -97,8 +92,8 @@ public class ArithmeticParser {
         Pattern patternForOpening = Pattern.compile("\\(");
         Pattern patternForClosing = Pattern.compile("\\)");
 
-        Matcher matcherForClosing = patternForClosing.matcher(string);
-        Matcher matcherForOpening = patternForOpening.matcher(string);
+        Matcher matcherForClosing = patternForClosing.matcher(expression);
+        Matcher matcherForOpening = patternForOpening.matcher(expression);
 
         while (matcherForClosing.find()) {
             countClosingBrackets++;
@@ -113,10 +108,14 @@ public class ArithmeticParser {
     }
 
 
-    private static String deleteSpaces(String string) {
+    private static String deleteSpaces(String expression) {
 
-        return string.replaceAll(" ", "");
+        return expression.replaceAll(" ", "");
 
     }
-
+    private static boolean checkForDoubleSignOperations(String expression){
+        Pattern pattern = Pattern.compile("([-+*\\/%]=?){2,}");
+        Matcher matcher = pattern.matcher(expression);
+        return matcher.find();
+    }
 }
